@@ -1,0 +1,199 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1788176119950,
+  "projectRoot": "c:\\Users\\arati\\Documents\\GitHub\\ProjectNG",
+  "techStack": {
+    "languages": [],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [],
+    "gitBranches": {
+      "defaultBranch": "main",
+      "branchingStrategy": null
+    }
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "Assets": {
+      "path": "Assets",
+      "purpose": "Static assets",
+      "fileCount": 7,
+      "lastAccessed": 1788176119928,
+      "keyFiles": [
+        "0.GameData.meta",
+        "1.Scenes.meta",
+        "2.Scripts.meta",
+        "3.Prefabs.meta",
+        "InputSystem_Actions.inputactions"
+      ]
+    },
+    "Library": {
+      "path": "Library",
+      "purpose": null,
+      "fileCount": 22,
+      "lastAccessed": 1788176119929,
+      "keyFiles": [
+        "AnnotationManager",
+        "ArtifactDB",
+        "ArtifactDB-lock",
+        "BuildPlayer.prefs",
+        "BuildProfileContext.asset"
+      ]
+    },
+    "Logs": {
+      "path": "Logs",
+      "purpose": null,
+      "fileCount": 24,
+      "lastAccessed": 1788176119929,
+      "keyFiles": [
+        "AssetImportWorker0.log",
+        "AssetImportWorker1.log",
+        "AssetImportWorker2.log",
+        "AssetImportWorker3.log",
+        "shadercompiler-AssetImportWorker0-0.log"
+      ]
+    },
+    "obj": {
+      "path": "obj",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1788176119930,
+      "keyFiles": []
+    },
+    "Packages": {
+      "path": "Packages",
+      "purpose": null,
+      "fileCount": 2,
+      "lastAccessed": 1788176119930,
+      "keyFiles": [
+        "manifest.json",
+        "packages-lock.json"
+      ]
+    },
+    "ProjectSettings": {
+      "path": "ProjectSettings",
+      "purpose": null,
+      "fileCount": 24,
+      "lastAccessed": 1788176119930,
+      "keyFiles": [
+        "AudioManager.asset",
+        "ClusterInputManager.asset",
+        "DynamicsManager.asset",
+        "EditorBuildSettings.asset",
+        "EditorSettings.asset"
+      ]
+    },
+    "Temp": {
+      "path": "Temp",
+      "purpose": null,
+      "fileCount": 6,
+      "lastAccessed": 1788176119931,
+      "keyFiles": [
+        "FSTimeGet-176bddf9923798c43aec37ebf37696c4",
+        "FSTimeGet-279e389eac5797d4ba49030f9bde2772",
+        "FSTimeGet-2b491edbeb3f72d4b967a68563c9055e",
+        "FSTimeGet-aa7d9a0733807724db8464390c053992",
+        "FSTimeGet-eb7475c9cd9767849aab25698919a310"
+      ]
+    },
+    "UserSettings": {
+      "path": "UserSettings",
+      "purpose": null,
+      "fileCount": 3,
+      "lastAccessed": 1788176119931,
+      "keyFiles": [
+        "EditorUserSettings.asset",
+        "Search.index",
+        "Search.settings"
+      ]
+    },
+    "Temp\\bin": {
+      "path": "Temp\\bin",
+      "purpose": "Executable scripts",
+      "fileCount": 0,
+      "lastAccessed": 1788176119933,
+      "keyFiles": []
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "Assets/2.Scripts/Misc/StateTree/Core/State.cs",
+      "accessCount": 3,
+      "lastAccessed": 1788186359598,
+      "type": "file"
+    },
+    {
+      "path": "Assets/2.Scripts/Misc/StateTree/Core/StateTransition.cs",
+      "accessCount": 3,
+      "lastAccessed": 1788186361674,
+      "type": "file"
+    },
+    {
+      "path": "Assets/2.Scripts/Misc/StateTree/Core/StateTask.cs",
+      "accessCount": 3,
+      "lastAccessed": 1788186367975,
+      "type": "file"
+    },
+    {
+      "path": "Assets/2.Scripts/Misc/StateTree/Core/StateCondition.cs",
+      "accessCount": 3,
+      "lastAccessed": 1788186369378,
+      "type": "file"
+    },
+    {
+      "path": "Assets/2.Scripts/Misc/StateTree/Core/StateTreeContext.cs",
+      "accessCount": 3,
+      "lastAccessed": 1788186370794,
+      "type": "file"
+    },
+    {
+      "path": "Assets/2.Scripts/Misc/StateTree/Core/EStateTaskState.cs",
+      "accessCount": 2,
+      "lastAccessed": 1788186255331,
+      "type": "file"
+    },
+    {
+      "path": "Assets/2.Scripts/Misc/StateTree/Core/EStateTransitionState.cs",
+      "accessCount": 2,
+      "lastAccessed": 1788186256045,
+      "type": "file"
+    },
+    {
+      "path": "Assets/2.Scripts/Misc/StateTree/StateTreeRunner.cs",
+      "accessCount": 2,
+      "lastAccessed": 1788186354005,
+      "type": "file"
+    },
+    {
+      "path": "Assets/2.Scripts/Misc/StateTree/Core/StateTreeAsset.cs",
+      "accessCount": 2,
+      "lastAccessed": 1788186374272,
+      "type": "file"
+    },
+    {
+      "path": "Assets/2.Scripts",
+      "accessCount": 1,
+      "lastAccessed": 1788186333074,
+      "type": "directory"
+    }
+  ],
+  "userDirectives": []
+}

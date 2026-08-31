@@ -1,7 +1,9 @@
 using UnityEngine;
 
-public class StateTreeContext
+namespace GRstory.StateTree
 {
-    public GameObject OwnerObject;
-
+    public class StateTreeContext
+    {
+        public GameObject OwnerObject;
+    }
 }
