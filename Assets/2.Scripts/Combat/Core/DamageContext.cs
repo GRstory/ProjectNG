@@ -1,8 +1,13 @@
 using UnityEngine;
 
-public class DamageContext
+namespace GRstory.Combat
 {
-    public GameObject Attacker;
+    public class DamageContext
+    {
+        public GameObject Attacker { get; set; }
 
-    public float Damage;
+        public float Damage { get; set; }
+
+        public EDamageType Type { get; set; }
+    }
 }

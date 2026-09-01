@@ -1,0 +1,113 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace GRstory.Combat
+{
+    public class StatusEffectController : MonoBehaviour
+    {
+        private readonly List<StatusEffectInstance> _activeEffectList = new();
+
+        public IReadOnlyList<StatusEffectInstance> ActiveEffects => _activeEffectList;
+
+        public event Action<StatusEffectInstance> OnEffectApplied;
+        public event Action<StatusEffectInstance> OnEffectStackChanged;
+        public event Action<StatusEffectInstance> OnEffectRemoved;
+
+        #region MonoBehaviour
+        private void Update()
+        {
+            for (int i = _activeEffectList.Count - 1; i >= 0; i--)
+            {
+                StatusEffectInstance instance = _activeEffectList[i];
+                StatusEffectDefinition definition = instance.Definition;
+
+                if (definition.TickInterval > 0f)
+                {
+                    instance.TickTimer += Time.deltaTime;
+                    while (instance.TickTimer >= definition.TickInterval)
+                    {
+                        instance.TickTimer -= definition.TickInterval;
+                        foreach (StatusEffectModule module in definition.Modules)
+                        {
+                            module.OnTick(instance);
+                        }
+                    }
+                }
+
+                if (definition.Duration > 0f)
+                {
+                    instance.RemainingTime -= Time.deltaTime;
+                    if (instance.RemainingTime <= 0f)
+                    {
+                        RemoveAt(i);
+                    }
+                }
+            }
+        }
+        #endregion
+
+        public StatusEffectInstance Apply(StatusEffectDefinition definition, GameObject caster)
+        {
+            if (definition.StackPolicy != EStackPolicy.Independent)
+            {
+                StatusEffectInstance existing = _activeEffectList.Find(e => e.Definition == definition);
+                if (existing != null)
+                {
+                    existing.RemainingTime = definition.Duration;
+
+                    if (definition.StackPolicy == EStackPolicy.AddStack && existing.StackCount < definition.MaxStacks)
+                    {
+                        existing.StackCount++;
+                        foreach (StatusEffectModule module in definition.Modules)
+                        {
+                            module.OnStackChanged(existing);
+                        }
+                        OnEffectStackChanged?.Invoke(existing);
+                    }
+                    return existing;
+                }
+            }
+
+            StatusEffectInstance instance = new StatusEffectInstance(definition, gameObject, caster);
+            _activeEffectList.Add(instance);
+            foreach (StatusEffectModule module in definition.Modules)
+            {
+                module.OnApply(instance);
+            }
+            OnEffectApplied?.Invoke(instance);
+            return instance;
+        }
+
+        // 디스펠용: 해당 효과 전부 제거
+        public void Remove(StatusEffectDefinition definition)
+        {
+            for (int i = _activeEffectList.Count - 1; i >= 0; i--)
+            {
+                if (_activeEffectList[i].Definition == definition)
+                {
+                    RemoveAt(i);
+                }
+            }
+        }
+
+        public void RemoveAll()
+        {
+            for (int i = _activeEffectList.Count - 1; i >= 0; i--)
+            {
+                RemoveAt(i);
+            }
+        }
+
+        private void RemoveAt(int index)
+        {
+            StatusEffectInstance instance = _activeEffectList[index];
+            _activeEffectList.RemoveAt(index);
+            foreach (StatusEffectModule module in instance.Definition.Modules)
+            {
+                module.OnRemove(instance);
+            }
+            OnEffectRemoved?.Invoke(instance);
+        }
+    }
+}
