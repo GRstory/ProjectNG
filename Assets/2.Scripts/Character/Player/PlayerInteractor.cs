@@ -1,4 +1,4 @@
-using GRstory.Interaction;
+﻿using GRstory.Interaction;
 using UnityEngine;
 
 namespace GRstory.Character

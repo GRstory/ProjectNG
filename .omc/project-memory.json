@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1788176119950,
+  "lastScanned": 1788269620119,
   "projectRoot": "c:\\Users\\arati\\Documents\\GitHub\\ProjectNG",
   "techStack": {
     "languages": [],
@@ -35,21 +35,21 @@
     "Assets": {
       "path": "Assets",
       "purpose": "Static assets",
-      "fileCount": 7,
-      "lastAccessed": 1788176119928,
+      "fileCount": 11,
+      "lastAccessed": 1788269620071,
       "keyFiles": [
         "0.GameData.meta",
         "1.Scenes.meta",
         "2.Scripts.meta",
         "3.Prefabs.meta",
-        "InputSystem_Actions.inputactions"
+        "4.Meshes.meta"
       ]
     },
     "Library": {
       "path": "Library",
       "purpose": null,
-      "fileCount": 22,
-      "lastAccessed": 1788176119929,
+      "fileCount": 27,
+      "lastAccessed": 1788269620072,
       "keyFiles": [
         "AnnotationManager",
         "ArtifactDB",
@@ -61,28 +61,27 @@
     "Logs": {
       "path": "Logs",
       "purpose": null,
-      "fileCount": 24,
-      "lastAccessed": 1788176119929,
+      "fileCount": 4,
+      "lastAccessed": 1788269620072,
       "keyFiles": [
-        "AssetImportWorker0.log",
-        "AssetImportWorker1.log",
-        "AssetImportWorker2.log",
-        "AssetImportWorker3.log",
-        "shadercompiler-AssetImportWorker0-0.log"
+        "AssetImportWorker0-prev.log",
+        "AssetImportWorker1-prev.log",
+        "AssetImportWorker2-prev.log",
+        "AssetImportWorker3-prev.log"
       ]
     },
     "obj": {
       "path": "obj",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1788176119930,
+      "lastAccessed": 1788269620073,
       "keyFiles": []
     },
     "Packages": {
       "path": "Packages",
       "purpose": null,
       "fileCount": 2,
-      "lastAccessed": 1788176119930,
+      "lastAccessed": 1788269620073,
       "keyFiles": [
         "manifest.json",
         "packages-lock.json"
@@ -91,8 +90,8 @@
     "ProjectSettings": {
       "path": "ProjectSettings",
       "purpose": null,
-      "fileCount": 24,
-      "lastAccessed": 1788176119930,
+      "fileCount": 25,
+      "lastAccessed": 1788269620074,
       "keyFiles": [
         "AudioManager.asset",
         "ClusterInputManager.asset",
@@ -104,33 +103,23 @@
     "Temp": {
       "path": "Temp",
       "purpose": null,
-      "fileCount": 6,
-      "lastAccessed": 1788176119931,
+      "fileCount": 2,
+      "lastAccessed": 1788269620075,
       "keyFiles": [
-        "FSTimeGet-176bddf9923798c43aec37ebf37696c4",
-        "FSTimeGet-279e389eac5797d4ba49030f9bde2772",
-        "FSTimeGet-2b491edbeb3f72d4b967a68563c9055e",
-        "FSTimeGet-aa7d9a0733807724db8464390c053992",
-        "FSTimeGet-eb7475c9cd9767849aab25698919a310"
+        "FSTimeGet-c52d534ef374dcc48b06878e0f714945",
+        "UnityLockfile"
       ]
     },
     "UserSettings": {
       "path": "UserSettings",
       "purpose": null,
       "fileCount": 3,
-      "lastAccessed": 1788176119931,
+      "lastAccessed": 1788269620075,
       "keyFiles": [
         "EditorUserSettings.asset",
         "Search.index",
         "Search.settings"
       ]
-    },
-    "Temp\\bin": {
-      "path": "Temp\\bin",
-      "purpose": "Executable scripts",
-      "fileCount": 0,
-      "lastAccessed": 1788176119933,
-      "keyFiles": []
     }
   },
   "hotPaths": [
@@ -165,6 +154,18 @@
       "type": "file"
     },
     {
+      "path": "Assets/2.Scripts/Combat/Damageables/Health.cs",
+      "accessCount": 3,
+      "lastAccessed": 1788283590582,
+      "type": "file"
+    },
+    {
+      "path": "Assets/2.Scripts/Combat/StatusEffects/StatusEffectController.cs",
+      "accessCount": 3,
+      "lastAccessed": 1788283600326,
+      "type": "file"
+    },
+    {
       "path": "Assets/2.Scripts/Misc/StateTree/Core/EStateTaskState.cs",
       "accessCount": 2,
       "lastAccessed": 1788186255331,
@@ -189,10 +190,112 @@
       "type": "file"
     },
     {
+      "path": "Assets/2.Scripts/SaveSystem/IPlayerData.cs",
+      "accessCount": 2,
+      "lastAccessed": 1788283558985,
+      "type": "file"
+    },
+    {
+      "path": "Assets/2.Scripts/SaveSystem/PlayerSnapshot.cs",
+      "accessCount": 2,
+      "lastAccessed": 1788283561790,
+      "type": "file"
+    },
+    {
+      "path": "Assets/2.Scripts/SaveSystem/SceneState.cs",
+      "accessCount": 2,
+      "lastAccessed": 1788283571665,
+      "type": "file"
+    },
+    {
+      "path": "Assets/2.Scripts/SaveSystem/GameSession.cs",
+      "accessCount": 2,
+      "lastAccessed": 1788283579887,
+      "type": "file"
+    },
+    {
+      "path": "Assets/2.Scripts/Character/Player/PlayerMovement.cs",
+      "accessCount": 2,
+      "lastAccessed": 1788284082604,
+      "type": "file"
+    },
+    {
       "path": "Assets/2.Scripts",
       "accessCount": 1,
       "lastAccessed": 1788186333074,
       "type": "directory"
+    },
+    {
+      "path": "Assets/2.Scripts/Character/Player/PlayerBehaviour.cs",
+      "accessCount": 1,
+      "lastAccessed": 1788270005756,
+      "type": "file"
+    },
+    {
+      "path": "Assets/2.Scripts/Interaction/IInteractable.cs",
+      "accessCount": 1,
+      "lastAccessed": 1788270090986,
+      "type": "file"
+    },
+    {
+      "path": "Assets/2.Scripts/Character/Player/PlayerInteractor.cs",
+      "accessCount": 1,
+      "lastAccessed": 1788270091730,
+      "type": "file"
+    },
+    {
+      "path": "Assets/2.Scripts/Combat/Status/StatusSystem.cs",
+      "accessCount": 1,
+      "lastAccessed": 1788270091912,
+      "type": "file"
+    },
+    {
+      "path": "ProjectSettings/ProjectVersion.txt",
+      "accessCount": 1,
+      "lastAccessed": 1788274423968,
+      "type": "file"
+    },
+    {
+      "path": "Assets/2.Scripts/Combat/StatusEffects/StatusEffectInstance.cs",
+      "accessCount": 1,
+      "lastAccessed": 1788283378802,
+      "type": "file"
+    },
+    {
+      "path": "Assets/2.Scripts/Combat/StatusEffects/StatusEffectDefinition.cs",
+      "accessCount": 1,
+      "lastAccessed": 1788283379008,
+      "type": "file"
+    },
+    {
+      "path": "Assets/2.Scripts/Combat/StatusEffects/StatusEffectModule.cs",
+      "accessCount": 1,
+      "lastAccessed": 1788283491874,
+      "type": "file"
+    },
+    {
+      "path": "Assets/2.Scripts/Combat/StatusEffects/Modules/StatModifierModule.cs",
+      "accessCount": 1,
+      "lastAccessed": 1788283492575,
+      "type": "file"
+    },
+    {
+      "path": "Assets/2.Scripts/Combat/StatusEffects/Modules/DamageOverTimeModule.cs",
+      "accessCount": 1,
+      "lastAccessed": 1788283492923,
+      "type": "file"
+    },
+    {
+      "path": "Assets/2.Scripts/SaveSystem/StatusEffectSaveData.cs",
+      "accessCount": 1,
+      "lastAccessed": 1788283563902,
+      "type": "file"
+    },
+    {
+      "path": ".editorconfig",
+      "accessCount": 1,
+      "lastAccessed": 1788284049785,
+      "type": "file"
     }
   ],
   "userDirectives": []

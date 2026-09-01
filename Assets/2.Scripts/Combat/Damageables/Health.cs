@@ -1,9 +1,10 @@
-using System;
+﻿using System;
+using GRstory.SaveSystem;
 using UnityEngine;
 
 namespace GRstory.Combat
 {
-    public class Health : MonoBehaviour, IDamageable
+    public class Health : MonoBehaviour, IDamageable, IPlayerData
     {
         [SerializeField] private float _maxHealth;
         [SerializeField] private bool _isInvincible = false;
@@ -44,6 +45,21 @@ namespace GRstory.Combat
 
             CurrentHealth = Mathf.Clamp(CurrentHealth + amount, 0, _maxHealth);
             OnHealed?.Invoke(amount);
+        }
+
+        public void CaptureData(PlayerSnapshot snapshot)
+        {
+            snapshot.MaxHealth = _maxHealth;
+            snapshot.CurrentHealth = CurrentHealth;
+        }
+
+        // 복원은 이벤트를 쏘지 않는다. 피격/회복 연출이 아니라 상태 재구성이기 때문
+        public void RestoreData(PlayerSnapshot snapshot)
+        {
+            if (snapshot.MaxHealth > 0f)
+                _maxHealth = snapshot.MaxHealth;
+
+            CurrentHealth = Mathf.Clamp(snapshot.CurrentHealth, 0f, _maxHealth);
         }
     }
 }

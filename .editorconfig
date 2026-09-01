@@ -1,0 +1,10 @@
+root = true
+
+# Visual Studio는 파일을 만들거나 저장할 때 이 설정을 따른다.
+# 유니코드(UTF-8 BOM) + CRLF로 고정해 "줄 끝 정규화" 경고와 한글 깨짐을 방지.
+[*.cs]
+charset = utf-8-bom
+end_of_line = crlf
+indent_style = space
+indent_size = 4
+insert_final_newline = true

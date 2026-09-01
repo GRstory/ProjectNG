@@ -1,10 +1,11 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using GRstory.SaveSystem;
 using UnityEngine;
 
 namespace GRstory.Combat
 {
-    public class StatusEffectController : MonoBehaviour
+    public class StatusEffectController : MonoBehaviour, IPlayerData
     {
         private readonly List<StatusEffectInstance> _activeEffectList = new();
 
@@ -108,6 +109,39 @@ namespace GRstory.Combat
                 module.OnRemove(instance);
             }
             OnEffectRemoved?.Invoke(instance);
+        }
+
+        public void CaptureData(PlayerSnapshot snapshot)
+        {
+            snapshot.StatusEffects.Clear();
+            foreach (StatusEffectInstance instance in _activeEffectList)
+            {
+                snapshot.StatusEffects.Add(new StatusEffectSaveData
+                {
+                    Definition = instance.Definition,
+                    StackCount = instance.StackCount,
+                    RemainingTime = instance.RemainingTime,
+                });
+            }
+        }
+
+        public void RestoreData(PlayerSnapshot snapshot)
+        {
+            RemoveAll();
+            foreach (StatusEffectSaveData saveData in snapshot.StatusEffects)
+            {
+                if (saveData.Definition == null) continue;
+
+                // StackCount를 직접 대입하면 StatModifierModule의 스택별 모디파이어가 누락되므로
+                // 반드시 Apply를 스택 수만큼 거쳐 모듈 콜백(OnApply/OnStackChanged)을 태운다.
+                // 원래 시전자는 이전 씬과 함께 사라졌으므로 자기 자신을 시전자로 둔다.
+                StatusEffectInstance instance = Apply(saveData.Definition, gameObject);
+                for (int i = 1; i < saveData.StackCount; i++)
+                {
+                    Apply(saveData.Definition, gameObject);
+                }
+                instance.RemainingTime = saveData.RemainingTime;
+            }
         }
     }
 }

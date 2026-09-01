@@ -1,4 +1,4 @@
-namespace GRstory.Character
+﻿namespace GRstory.Character
 {
     public enum EPlayerState
     {

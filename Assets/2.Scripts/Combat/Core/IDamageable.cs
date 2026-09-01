@@ -1,4 +1,4 @@
-namespace GRstory.Combat
+﻿namespace GRstory.Combat
 {
     public interface IDamageable
     {
