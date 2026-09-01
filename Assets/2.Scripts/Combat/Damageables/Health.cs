@@ -10,7 +10,10 @@ namespace GRstory.Combat
 
         [field: SerializeField] public float CurrentHealth { get; private set; }
 
+        public float MaxHealth => _maxHealth;
+
         public event Action<DamageContext> OnHit;
+        public event Action<float> OnHealed;
         public event Action OnDied;
 
         #region Monobehaviour
@@ -33,6 +36,14 @@ namespace GRstory.Combat
             {
                 OnDied?.Invoke();
             }
+        }
+
+        public void Heal(float amount)
+        {
+            if (CurrentHealth <= 0) return; // 사망 후 회복 불가
+
+            CurrentHealth = Mathf.Clamp(CurrentHealth + amount, 0, _maxHealth);
+            OnHealed?.Invoke(amount);
         }
     }
 }
