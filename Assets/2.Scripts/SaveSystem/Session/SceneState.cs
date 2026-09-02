@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace GRstory.SaveSystem
 {
     public class SceneState
     {
         private readonly HashSet<string> _visitedRoomSet = new();
-        private readonly HashSet<string> _clearedRoomSet = new();
 
         // 오브젝트별 사실 기록. 키는 "{objectId}.{fact}" (예: "3f2a...c1.dead")
         private readonly Dictionary<string, bool> _boolDict = new();
@@ -16,9 +15,6 @@ namespace GRstory.SaveSystem
 
         public void MarkRoomVisited(string roomId) => _visitedRoomSet.Add(roomId);
         public bool IsRoomVisited(string roomId) => _visitedRoomSet.Contains(roomId);
-
-        public void MarkRoomCleared(string roomId) => _clearedRoomSet.Add(roomId);
-        public bool IsRoomCleared(string roomId) => _clearedRoomSet.Contains(roomId);
 
         public void SetBool(string objectId, string fact, bool value)
             => _boolDict[MakeKey(objectId, fact)] = value;
@@ -33,5 +29,28 @@ namespace GRstory.SaveSystem
             => _intDict.TryGetValue(MakeKey(objectId, fact), out int value) ? value : defaultValue;
 
         private static string MakeKey(string objectId, string fact) => $"{objectId}.{fact}";
+
+        #region 저장용 변환
+        public SceneStateData ToData() => new SceneStateData
+        {
+            VisitedRoomList = new List<string>(_visitedRoomSet),
+            BoolFactDict = new Dictionary<string, bool>(_boolDict),
+            IntFactDict = new Dictionary<string, int>(_intDict),
+        };
+
+        public static SceneState FromData(SceneStateData data)
+        {
+            SceneState state = new();
+            if (data.VisitedRoomList != null)
+                state._visitedRoomSet.UnionWith(data.VisitedRoomList);
+            if (data.BoolFactDict != null)
+                foreach (KeyValuePair<string, bool> pair in data.BoolFactDict)
+                    state._boolDict[pair.Key] = pair.Value;
+            if (data.IntFactDict != null)
+                foreach (KeyValuePair<string, int> pair in data.IntFactDict)
+                    state._intDict[pair.Key] = pair.Value;
+            return state;
+        }
+        #endregion
     }
 }
