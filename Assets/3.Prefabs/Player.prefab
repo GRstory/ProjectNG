@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5175330159123315664}
   - component: {fileID: 333766319136106323}
   - component: {fileID: 4477710371532807796}
+  - component: {fileID: 1143590649799703528}
   - component: {fileID: 7806216281209311487}
   - component: {fileID: 6903683781363520097}
   m_Layer: 0
@@ -123,6 +124,23 @@ MonoBehaviour:
   _dampTime: 0.1
   _upperBodyLayerIndex: 1
   _upperBodyBlendSpeed: 8
+--- !u!114 &1143590649799703528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938127385133349719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20c6d7101112ad243ae277e805ed7f93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GRstory.Character.PlayerInteractor
+  _interactMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  _radius: 1.2
+  _offset: {x: 0, y: 0, z: 0.8}
 --- !u!114 &7806216281209311487
 MonoBehaviour:
   m_ObjectHideFlags: 0

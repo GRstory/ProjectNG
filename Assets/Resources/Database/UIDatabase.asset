@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 129732bd66b37ab40afe848ed8c0be43, type: 3}
   m_Name: UIDatabase
   m_EditorClassIdentifier: Assembly-CSharp::GRstory.UISystem.UIDatabase
-  _uiPrefabList: []
+  _uiPrefabList:
+  - {fileID: 6306691720074479407, guid: 2f238230b58be2245a0323b3c7174d58, type: 3}
+  - {fileID: 8081590058250617808, guid: 68bc409743e31d84483b216d93296b9f, type: 3}

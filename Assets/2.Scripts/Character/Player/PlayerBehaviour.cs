@@ -30,9 +30,12 @@ namespace GRstory.Character
             _input = GetComponent<PlayerInput>();
             _movement = GetComponent<PlayerMovement>();
             _health = GetComponent<Health>();
+
             TryGetComponent(out _aim);
             TryGetComponent(out _interactor);
             TryGetComponent(out _flashlight);
+
+            PlayerRegistry.RegisterPlayer(this);
         }
 
         private void OnEnable()

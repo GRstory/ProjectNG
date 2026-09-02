@@ -33,6 +33,7 @@ namespace GRstory.SaveSystem
             SaveData saveData = new SaveData
             {
                 Version = CurrentVersion,
+                SavedAtUtc = DateTime.UtcNow,
                 LastSceneName = SceneManager.GetActiveScene().name,
                 PlayerSnapshot = ToData(session.PlayerSnapshot),
             };
@@ -51,14 +52,14 @@ namespace GRstory.SaveSystem
             else File.Move(tempPath, path);
         }
 
-        public static bool TryLoad(out string lastSceneName, int slot = 0)
+        // 파일을 읽고 검증만 한다. 세션은 건드리지 않아 슬롯 표시용으로도 쓴다
+        public static bool TryRead(int slot, out SaveData saveData)
         {
-            lastSceneName = null;
+            saveData = null;
 
             string path = GetPath(slot);
             if (!File.Exists(path)) return false;
 
-            SaveData saveData;
             try
             {
                 saveData = JsonConvert.DeserializeObject<SaveData>(File.ReadAllText(path));
@@ -70,7 +71,18 @@ namespace GRstory.SaveSystem
             }
 
             if (saveData == null) return false;
-            if (saveData.Version != CurrentVersion) return false; // 포맷이 바뀌면 여기서 구버전 마이그레이션
+            if (saveData.Version != CurrentVersion) // 포맷이 바뀌면 여기서 구버전 마이그레이션
+            {
+                saveData = null;
+                return false;
+            }
+            return true;
+        }
+
+        public static bool TryLoad(out string lastSceneName, int slot = 0)
+        {
+            lastSceneName = null;
+            if (!TryRead(slot, out SaveData saveData)) return false;
 
             Dictionary<string, SceneState> sceneStateDict = new();
             if (saveData.SceneStateDict != null)
