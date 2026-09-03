@@ -528,6 +528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GRstory.UISystem.PauseUI
   UIType: 1
+  PausesGame: 1
 --- !u!1001 &4188321441344833795
 PrefabInstance:
   m_ObjectHideFlags: 0

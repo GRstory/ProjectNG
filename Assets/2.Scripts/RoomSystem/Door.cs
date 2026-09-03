@@ -18,13 +18,13 @@ public class Door : MonoBehaviour, IInteractable
     public void Interact(GameObject interactor)
     {
         if (_isLocked) return; // TODO: 잠김 피드백 (소리/UI)
-        if (RoomManager.Instance == null)
+        if (LevelManager.Instance == null)
         {
-            Debug.LogError($"문 '{name}': 씬에 RoomManager가 없음", this);
+            Debug.LogError($"문 '{name}': 씬에 LevelManager가 없음", this);
             return;
         }
 
-        RoomManager.Instance.MoveThroughDoor(this, interactor);
+        LevelManager.Instance.MoveThroughDoor(this, interactor);
     }
 
     public void SetLocked(bool locked) => _isLocked = locked;

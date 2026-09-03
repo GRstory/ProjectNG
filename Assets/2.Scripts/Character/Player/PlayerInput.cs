@@ -16,6 +16,7 @@ namespace GRstory.Character
         private InputAction _flashlight;
         private InputAction _next;
         private InputAction _previous;
+        private InputAction _inventory;
 
         public Vector2 MoveInput => _move.ReadValue<Vector2>();
         public bool IsSprintHeld => _sprint.IsPressed();
@@ -25,6 +26,7 @@ namespace GRstory.Character
         public bool FlashlightPressed => _flashlight.WasPressedThisFrame();
         public bool NextTargetPressed => _next.WasPressedThisFrame();
         public bool PreviousTargetPressed => _previous.WasPressedThisFrame();
+        public bool InventoryPressed => _inventory.WasPressedThisFrame();
 
         #region MonoBehaviour
         private void Awake()
@@ -38,6 +40,7 @@ namespace GRstory.Character
             _flashlight = _playerMap.FindAction("Flashlight", throwIfNotFound: true);
             _next = _playerMap.FindAction("Next", throwIfNotFound: true);
             _previous = _playerMap.FindAction("Previous", throwIfNotFound: true);
+            _inventory = _playerMap.FindAction("Inventory", throwIfNotFound: true);
         }
 
         private void OnEnable()

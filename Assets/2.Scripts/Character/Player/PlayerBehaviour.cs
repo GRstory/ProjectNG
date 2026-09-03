@@ -1,5 +1,6 @@
 ﻿using System;
 using GRstory.Combat;
+using GRstory.UISystem;
 using UnityEngine;
 
 namespace GRstory.Character
@@ -52,6 +53,14 @@ namespace GRstory.Character
 
         private void Update()
         {
+            // 정지 중엔 인벤토리 닫기만 받고 나머지 입력은 전부 막는다
+            if (UIManager.Instance.IsPaused)
+            {
+                if (_input.InventoryPressed && UIManager.Instance.IsTop<InventoryUI>())
+                    UIManager.Instance.DeactiveUI<InventoryUI>();
+                return;
+            }
+
             switch (State)
             {
                 case EPlayerState.Normal:
@@ -69,6 +78,12 @@ namespace GRstory.Character
 
         private void UpdateNormal()
         {
+            if (_input.InventoryPressed)
+            {
+                UIManager.Instance.ActiveUI<InventoryUI>();
+                return; // 정지된 프레임에 이동/조준을 처리하지 않는다
+            }
+
             if (_input.FlashlightPressed && _flashlight != null)
                 _flashlight.Toggle();
 

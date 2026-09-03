@@ -18,6 +18,8 @@ namespace GRstory.UISystem
         private Dictionary<Type, BaseUI> _cacheDict = new();
         private Stack<BaseUI> _stack = new();
 
+        public bool IsPaused { get; private set; }
+
         #region MonoBehaviour
         private void Awake()
         {
@@ -61,6 +63,11 @@ namespace GRstory.UISystem
             return null;
         }
 
+        public bool IsTop<T>() where T : BaseUI
+        {
+            return _stack.Count > 0 && _stack.Peek() is T;
+        }
+
         public void ActiveUI<T>() where T : BaseUI
         {
             ActiveUI(typeof(T));
@@ -97,6 +104,7 @@ namespace GRstory.UISystem
             ui.transform.SetAsLastSibling();
             ui.OnUIActive();
             _stack.Push(ui);
+            RefreshPause();
         }
 
         public void DeactiveUI<T>() where T : BaseUI
@@ -123,6 +131,20 @@ namespace GRstory.UISystem
                 if (poppedUI.UIType == EUIType.Screen) _stack.Peek().OnUIActive();
                 else _stack.Peek().OnUIRevealed();
             }
+            RefreshPause();
+        }
+
+        // 스택 어딘가에 정지 UI가 하나라도 있으면 정지. 위에 겹친 UI가 닫혀도 아래 UI의 정지가 유지된다
+        private void RefreshPause()
+        {
+            IsPaused = false;
+            foreach (BaseUI ui in _stack)
+            {
+                if (!ui.PausesGame) continue;
+                IsPaused = true;
+                break;
+            }
+            Time.timeScale = IsPaused ? 0f : 1f;
         }
 
         private void HandleEscape()

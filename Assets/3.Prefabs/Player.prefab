@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1143590649799703528}
   - component: {fileID: 7806216281209311487}
   - component: {fileID: 6903683781363520097}
+  - component: {fileID: 2139122051575307645}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -177,6 +178,19 @@ MonoBehaviour:
   _maxHealth: 100
   _isInvincible: 0
   <CurrentHealth>k__BackingField: 0
+--- !u!114 &2139122051575307645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938127385133349719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ea753fb069bf9340988ab1facffc662, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GRstory.ItemSystem.Inventory
+  _capacity: 6
 --- !u!1001 &7117083136919946169
 PrefabInstance:
   m_ObjectHideFlags: 0

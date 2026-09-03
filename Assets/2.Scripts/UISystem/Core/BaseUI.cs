@@ -14,6 +14,8 @@ namespace GRstory.UISystem
         private Coroutine _deactiveRoutine;
 
         [field: SerializeField] public EUIType UIType = EUIType.Screen;
+        [Tooltip("스택에 있는 동안 게임을 정지시킨다 (timeScale 0). 정지 여부는 UIManager가 스택 전체를 보고 결정한다")]
+        public bool PausesGame;
 
         #region MonoBehaviour
         protected virtual void Awake()
