@@ -8,14 +8,20 @@ namespace GRstory.UISystem
 {
     public class InventoryUI : BaseUI
     {
+        private const string UseLabel = "사용";
+        private const string EquipLabel = "장착";
+        private const string UnequipLabel = "장착 해제";
+
         [SerializeField] private InventorySlot[] _slotArray;
         [SerializeField] private Image _detailIconImage;
         [SerializeField] private TMP_Text _detailNameText;
         [SerializeField] private TMP_Text _detailDescriptionText;
         [SerializeField] private TMP_Text _detailCountText;
         [SerializeField] private DefaultButton _useButton;
+        [SerializeField] private TMP_Text _useButtonText;
 
         private Inventory _inventory;
+        private PlayerWeapon _weapon;
         private int _selectedSlot;
 
         protected override void Awake()
@@ -42,6 +48,11 @@ namespace GRstory.UISystem
             }
 
             _inventory.OnChanged += Refresh;
+
+            // 장착은 인벤토리 내용을 바꾸지 않아 OnChanged가 안 오므로 따로 듣는다
+            if (player.TryGetComponent(out _weapon))
+                _weapon.OnWeaponChanged += HandleWeaponChanged;
+
             _selectedSlot = 0;
             Refresh();
         }
@@ -50,9 +61,16 @@ namespace GRstory.UISystem
         {
             base.OnUIDeactive();
 
-            if (_inventory == null) return;
-            _inventory.OnChanged -= Refresh;
-            _inventory = null;
+            if (_inventory != null)
+            {
+                _inventory.OnChanged -= Refresh;
+                _inventory = null;
+            }
+            if (_weapon != null)
+            {
+                _weapon.OnWeaponChanged -= HandleWeaponChanged;
+                _weapon = null;
+            }
         }
 
         private void Select(int slot)
@@ -69,6 +87,11 @@ namespace GRstory.UISystem
         {
             if (_inventory == null) return;
             _inventory.TryUse(_selectedSlot);
+        }
+
+        private void HandleWeaponChanged(WeaponData weapon)
+        {
+            RefreshDetail();
         }
 
         private void Refresh()
@@ -90,8 +113,16 @@ namespace GRstory.UISystem
             _detailDescriptionText.text = hasItem ? stack.Item.Description : string.Empty;
             _detailCountText.text = hasItem ? stack.Count.ToString() : string.Empty;
             _useButton.Button.interactable = hasItem && stack.Item.IsUsable;
+            if (_useButtonText != null) _useButtonText.text = GetUseLabel(stack);
 
             if (hasItem) _detailIconImage.sprite = stack.Item.Icon;
+        }
+
+        // 일반 아이템은 "사용", 무기는 "장착", 장착 중인 무기면 "장착 해제"
+        private string GetUseLabel(ItemStack stack)
+        {
+            if (stack == null || stack.Item is not WeaponData weapon) return UseLabel;
+            return _weapon != null && _weapon.Equipped == weapon ? UnequipLabel : EquipLabel;
         }
     }
 }

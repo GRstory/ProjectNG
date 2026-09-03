@@ -18,6 +18,7 @@ namespace GRstory.Character
         private PlayerAim _aim;
         private PlayerInteractor _interactor;
         private Flashlight _flashlight;
+        private PlayerWeapon _weapon;
         private Health _health;
         private float _stateTimer;
 
@@ -35,6 +36,7 @@ namespace GRstory.Character
             TryGetComponent(out _aim);
             TryGetComponent(out _interactor);
             TryGetComponent(out _flashlight);
+            TryGetComponent(out _weapon);
 
             PlayerRegistry.RegisterPlayer(this);
         }
@@ -111,7 +113,9 @@ namespace GRstory.Character
             else
                 _movement.Move(_input.MoveInput, EMoveMode.Aim);
 
-            // TODO: 무기 시스템 연결 후 _input.AttackPressed 처리
+            // 발사는 조준 중에만. 이동과 병렬이라 상태를 바꾸지 않는다
+            if (_input.AttackPressed && _weapon != null)
+                _weapon.TryAttack();
         }
 
         private void UpdateLocomotion()

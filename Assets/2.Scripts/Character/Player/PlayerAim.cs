@@ -31,6 +31,18 @@ namespace GRstory.Character
             }
         }
 
+        // 히트스캔 조준점. 콜라이더가 있으면 몸통 중심, 없으면 피벗(보통 발치)
+        public Vector3 TargetPoint
+        {
+            get
+            {
+                if (CurrentTarget == null) return transform.position + transform.forward;
+
+                Collider collider = CurrentTarget.GetComponentInChildren<Collider>();
+                return collider != null ? collider.bounds.center : CurrentTarget.position;
+            }
+        }
+
         public void StartAim()
         {
             IsAiming = true;
@@ -116,7 +128,7 @@ namespace GRstory.Character
 
         private static bool IsAlive(Transform target)
         {
-            return !target.TryGetComponent(out Health health) || health.CurrentHealth > 0f;
+            return !target.TryGetComponent(out Health health) || !health.IsDead;
         }
 
         private float SignedYawTo(Transform target)

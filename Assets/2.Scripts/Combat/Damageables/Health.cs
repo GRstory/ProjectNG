@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using GRstory.SaveSystem;
 using UnityEngine;
 
@@ -12,28 +12,27 @@ namespace GRstory.Combat
         [field: SerializeField] public float CurrentHealth { get; private set; }
 
         public float MaxHealth => _maxHealth;
+        public bool IsDead => CurrentHealth <= 0f;
 
         public event Action<DamageContext> OnHit;
         public event Action<float> OnHealed;
         public event Action OnDied;
 
-        #region Monobehaviour
+        #region MonoBehaviour
         private void Awake()
         {
             CurrentHealth = _maxHealth;
         }
-
         #endregion
-
 
         public void GetDamage(DamageContext context)
         {
-            if (_isInvincible) return;
+            if (_isInvincible || IsDead) return; // 죽은 뒤 피격은 무시한다. OnDied가 다시 나가지 않도록
 
             CurrentHealth = Mathf.Clamp(CurrentHealth - context.Damage, 0, _maxHealth);
             OnHit?.Invoke(context);
 
-            if (CurrentHealth <= 0)
+            if (IsDead)
             {
                 OnDied?.Invoke();
             }
@@ -41,7 +40,7 @@ namespace GRstory.Combat
 
         public void Heal(float amount)
         {
-            if (CurrentHealth <= 0) return; // 사망 후 회복 불가
+            if (IsDead) return; // 사망 후 회복 불가
 
             CurrentHealth = Mathf.Clamp(CurrentHealth + amount, 0, _maxHealth);
             OnHealed?.Invoke(amount);

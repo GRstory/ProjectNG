@@ -1,4 +1,5 @@
-﻿using GRstory.Combat;
+using GRstory.Combat;
+using GRstory.ItemSystem;
 using UnityEngine;
 
 namespace GRstory.Character
@@ -14,6 +15,7 @@ namespace GRstory.Character
         private static readonly int IsDeadHash = Animator.StringToHash("IsDead");
         private static readonly int StaggerHash = Animator.StringToHash("Stagger");
         private static readonly int InteractHash = Animator.StringToHash("Interact");
+        private static readonly int AttackHash = Animator.StringToHash("Attack");
 
         [SerializeField, Tooltip("비워두면 자식에서 찾는다")]
         private Animator _animator;
@@ -25,7 +27,9 @@ namespace GRstory.Character
         private PlayerBehaviour _behaviour;
         private PlayerMovement _movement;
         private PlayerAim _aim;
+        private PlayerWeapon _weapon;
         private Health _health;
+        private RuntimeAnimatorController _baseController; // 맨손용. 무기 해제 시 되돌린다
         private float _upperBodyWeight;
 
         #region MonoBehaviour
@@ -34,6 +38,7 @@ namespace GRstory.Character
             _behaviour = GetComponent<PlayerBehaviour>();
             _movement = GetComponent<PlayerMovement>();
             TryGetComponent(out _aim);
+            TryGetComponent(out _weapon);
             TryGetComponent(out _health);
 
             if (_animator == null)
@@ -43,7 +48,10 @@ namespace GRstory.Character
             {
                 Debug.LogWarning("Animator를 찾지 못해 PlayerAnimator를 비활성화합니다.", this);
                 enabled = false;
+                return;
             }
+
+            _baseController = _animator.runtimeAnimatorController;
         }
 
         private void OnEnable()
@@ -51,12 +59,22 @@ namespace GRstory.Character
             _behaviour.OnStateChanged += HandleStateChanged;
             // 연속 피격은 상태가 그대로라 OnStateChanged가 안 오므로 피격 이벤트로 직접 트리거한다
             if (_health != null) _health.OnHit += HandleHit;
+            if (_weapon != null)
+            {
+                _weapon.OnWeaponChanged += HandleWeaponChanged;
+                _weapon.OnAttacked += HandleAttacked;
+            }
         }
 
         private void OnDisable()
         {
             _behaviour.OnStateChanged -= HandleStateChanged;
             if (_health != null) _health.OnHit -= HandleHit;
+            if (_weapon != null)
+            {
+                _weapon.OnWeaponChanged -= HandleWeaponChanged;
+                _weapon.OnAttacked -= HandleAttacked;
+            }
         }
 
         private void Update()
@@ -102,6 +120,23 @@ namespace GRstory.Character
         private void HandleHit(DamageContext context)
         {
             _animator.SetTrigger(StaggerHash);
+        }
+
+        // 무기별 파지·조준·발사 클립은 오버라이드 컨트롤러로 바꾼다.
+        // 교체 순간 상태머신이 초기화되지만 인벤토리 정지 중에 일어나므로 눈에 띄지 않는다
+        private void HandleWeaponChanged(WeaponData weapon)
+        {
+            RuntimeAnimatorController next = weapon != null && weapon.AnimatorOverride != null
+                ? weapon.AnimatorOverride
+                : _baseController;
+
+            if (_animator.runtimeAnimatorController != next)
+                _animator.runtimeAnimatorController = next;
+        }
+
+        private void HandleAttacked()
+        {
+            _animator.SetTrigger(AttackHash);
         }
     }
 }
