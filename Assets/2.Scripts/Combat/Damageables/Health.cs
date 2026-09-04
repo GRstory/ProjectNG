@@ -17,6 +17,7 @@ namespace GRstory.Combat
         public event Action<DamageContext> OnHit;
         public event Action<float> OnHealed;
         public event Action OnDied;
+        public event Action<float, float> OnHealthChanged;
 
         #region MonoBehaviour
         private void Awake()
@@ -30,6 +31,7 @@ namespace GRstory.Combat
             if (_isInvincible || IsDead) return; // 죽은 뒤 피격은 무시한다. OnDied가 다시 나가지 않도록
 
             CurrentHealth = Mathf.Clamp(CurrentHealth - context.Damage, 0, _maxHealth);
+            OnHealthChanged?.Invoke(CurrentHealth, _maxHealth);
             OnHit?.Invoke(context);
 
             if (IsDead)
@@ -43,6 +45,7 @@ namespace GRstory.Combat
             if (IsDead) return; // 사망 후 회복 불가
 
             CurrentHealth = Mathf.Clamp(CurrentHealth + amount, 0, _maxHealth);
+            OnHealthChanged?.Invoke(CurrentHealth, _maxHealth);
             OnHealed?.Invoke(amount);
         }
 
