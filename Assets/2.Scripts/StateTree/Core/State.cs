@@ -19,6 +19,15 @@ namespace GRstory.StateTree
 
         [NonSerialized] private State _parentState; // 직렬화 대상이 아님. BuildParentLinks에서 연결
 
+        public State() { } // 역직렬화용
+
+        public State(string stateName, Vector2 position)
+        {
+            _guid = Guid.NewGuid().ToString("N");
+            _stateName = stateName;
+            _position = position;
+        }
+
         public string GUID => _guid;
         public string StateName => _stateName;
         public Vector2 Position { get => _position; set => _position = value; }

@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: ID_Bandage
   m_EditorClassIdentifier: Assembly-CSharp::GRstory.ItemSystem.ItemData
   <Id>k__BackingField: Bandage
-  <DisplayName>k__BackingField: 
-  <Description>k__BackingField: 
+  <DisplayName>k__BackingField: "\uBD95\uB300"
+  <Description>k__BackingField: "\uC9E7\uC740 \uC2DC\uAC04\uB3D9\uC548 \uC57D\uAC04\uC758
+    \uCCB4\uB825\uC744 \uCDA9\uC804\uD55C\uB2E4."
   <Icon>k__BackingField: {fileID: 0}
   <MaxStack>k__BackingField: 1
   <ConsumeOnUse>k__BackingField: 1
-  <UseEffect>k__BackingField: {fileID: 0}
+  <UseEffect>k__BackingField: {fileID: 11400000, guid: 46aac0076dd69c04f8795dc4d7d28d79, type: 2}

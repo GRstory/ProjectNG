@@ -240,7 +240,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7d34afaf33f8548ab3cd199ec9ad7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GRstory.UISystem.SaveUI
-  UIType: 0
+  UIType: 1
+  PausesGame: 1
   _cardArray:
   - {fileID: 4114314402151364300}
   - {fileID: 4358743566836658444}

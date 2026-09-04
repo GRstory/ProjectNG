@@ -9,7 +9,7 @@ namespace GRstory.StateTree
         [SerializeReference] private State _rootState;
         [SerializeReference] private List<State> _nodeList = new(); // 그래프 에디터용 flat 목록. 루트 포함 전체 노드
 
-        public State RootState => _rootState;
+        public State RootState { get => _rootState; set => _rootState = value; }
         public List<State> NodeList => _nodeList;
 
         // 에이전트별 독립 인스턴스. SerializeReference 객체까지 깊은 복사됨

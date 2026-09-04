@@ -8,6 +8,10 @@ namespace GRstory.Character
     [RequireComponent(typeof(PlayerInput))]
     [RequireComponent(typeof(PlayerMovement))]
     [RequireComponent(typeof(Health))]
+    [RequireComponent(typeof(PlayerAim))]
+    [RequireComponent(typeof(PlayerInteractor))]
+    [RequireComponent(typeof(Flashlight))]
+    [RequireComponent(typeof(PlayerWeapon))]
     public class PlayerBehaviour : MonoBehaviour
     {
         [SerializeField] private float _staggerDuration = 0.4f;
@@ -32,11 +36,10 @@ namespace GRstory.Character
             _input = GetComponent<PlayerInput>();
             _movement = GetComponent<PlayerMovement>();
             _health = GetComponent<Health>();
-
-            TryGetComponent(out _aim);
-            TryGetComponent(out _interactor);
-            TryGetComponent(out _flashlight);
-            TryGetComponent(out _weapon);
+            _aim = GetComponent<PlayerAim>();
+            _interactor = GetComponent<PlayerInteractor>();
+            _flashlight = GetComponent<Flashlight>();
+            _weapon = GetComponent<PlayerWeapon>();
 
             PlayerRegistry.RegisterPlayer(this);
         }
@@ -83,44 +86,40 @@ namespace GRstory.Character
             if (_input.InventoryPressed)
             {
                 UIManager.Instance.ActiveUI<InventoryUI>();
-                return; // 정지된 프레임에 이동/조준을 처리하지 않는다
+                return;
             }
 
-            if (_input.FlashlightPressed && _flashlight != null)
+            if (_input.FlashlightPressed)
                 _flashlight.Toggle();
 
-            if (_aim != null && _input.IsAimHeld)
+            // 무기가 있을때만 조준
+            if (_input.IsAimHeld && _weapon.IsEquipped)
                 UpdateAiming();
             else
                 UpdateLocomotion();
 
-            if (_input.InteractPressed && _interactor != null && _interactor.TryInteract())
+            if (_input.InteractPressed && _interactor.TryInteract())
                 SetState(EPlayerState.Interacting);
         }
 
         private void UpdateAiming()
         {
             if (!_aim.IsAiming) _aim.StartAim();
+            _aim.UpdateAim(_input.PointerPosition);
 
-            if (_input.NextTargetPressed) _aim.CycleTarget(1);
-            else if (_input.PreviousTargetPressed) _aim.CycleTarget(-1);
+            // 몸은 조준 방향을 보고 다리는 입력대로 움직인다. 옆걸음은 애니메이터가 속도 방향으로 섞는다
+            _movement.Move(_input.MoveInput, EMoveMode.Aim, _aim.AimDirection);
 
-            _aim.UpdateAim();
-
-            // 타겟이 있으면 그쪽을 바라본 채 움직이고, 없으면 이동 방향을 바라본다
-            if (_aim.HasTarget)
-                _movement.Move(_input.MoveInput, EMoveMode.Aim, _aim.AimDirection);
-            else
-                _movement.Move(_input.MoveInput, EMoveMode.Aim);
-
-            // 발사는 조준 중에만. 이동과 병렬이라 상태를 바꾸지 않는다
-            if (_input.AttackPressed && _weapon != null)
+            // 발사는 조준 중에만. 이동과 병렬이라 상태를 바꾸지 않는다.
+            // 연사 무기는 누르고 있는 동안 쿨다운 간격으로, 단발은 누를 때마다 한 발
+            bool triggerPulled = _weapon.Equipped.IsAutomatic ? _input.IsAttackHeld : _input.AttackPressed;
+            if (triggerPulled)
                 _weapon.TryAttack();
         }
 
         private void UpdateLocomotion()
         {
-            if (_aim != null && _aim.IsAiming) _aim.StopAim();
+            if (_aim.IsAiming) _aim.StopAim();
 
             _movement.Move(_input.MoveInput, _input.IsSprintHeld ? EMoveMode.Sprint : EMoveMode.Walk);
         }
@@ -142,7 +141,7 @@ namespace GRstory.Character
             if (State == next && next != EPlayerState.Staggered) return; // 연속 피격이면 경직 시간을 처음부터 다시 잰다
 
             bool changed = State != next;
-            if (State == EPlayerState.Normal && _aim != null && _aim.IsAiming)
+            if (State == EPlayerState.Normal && _aim.IsAiming)
                 _aim.StopAim();
 
             State = next;

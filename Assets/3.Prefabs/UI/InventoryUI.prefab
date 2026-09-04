@@ -548,8 +548,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8dc4704f7297e146af53ab4162f57c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GRstory.UISystem.InventoryUI
-  UIType: 0
-  PausesGame: 0
+  UIType: 1
+  PausesGame: 1
   _slotArray:
   - {fileID: 9086788710269220603}
   - {fileID: 8331721555454789316}
@@ -562,6 +562,7 @@ MonoBehaviour:
   _detailDescriptionText: {fileID: 4080252095348218160}
   _detailCountText: {fileID: 8536727673794206727}
   _useButton: {fileID: 599371917101917895}
+  _useButtonText: {fileID: 4016188902643523434}
 --- !u!1 &5042048997212538590
 GameObject:
   m_ObjectHideFlags: 0
@@ -1809,6 +1810,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8054785f7093984c81660d655a0c70c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GRstory.UISystem.DefaultButton
+--- !u!114 &4016188902643523434 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8270575062124459852, guid: 3420ec9d819de1d4b813598388e4d78e, type: 3}
+  m_PrefabInstance: {fileID: 5006492830404651046}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!224 &7252247663658021781 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2440821699414924211, guid: 3420ec9d819de1d4b813598388e4d78e, type: 3}

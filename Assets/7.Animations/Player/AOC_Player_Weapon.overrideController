@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: AOC_Player_Weapon
+  m_Controller: {fileID: 9100000, guid: a72d2a62fd3e22a4c90503e8488550cf, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: -203655887218126122, guid: 34cac9ac12d9f4f4587d4ca3bbb50616, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 444c0b16163c77e4e8dabe8feb7694d4, type: 3}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: 0c3d9f00ea4633e44a5b3f5e1e8a50a1, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 81b4f50b80636c44ea9d4409d2576329, type: 3}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: b8c5c5e8f5c104f45a723d32f60095e0, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 81b4f50b80636c44ea9d4409d2576329, type: 3}

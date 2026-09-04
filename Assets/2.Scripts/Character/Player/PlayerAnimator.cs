@@ -1,4 +1,3 @@
-using GRstory.Combat;
 using GRstory.ItemSystem;
 using UnityEngine;
 
@@ -6,6 +5,8 @@ namespace GRstory.Character
 {
     [RequireComponent(typeof(PlayerBehaviour))]
     [RequireComponent(typeof(PlayerMovement))]
+    [RequireComponent(typeof(PlayerAim))]
+    [RequireComponent(typeof(PlayerWeapon))]
     public class PlayerAnimator : MonoBehaviour
     {
         private static readonly int SpeedHash = Animator.StringToHash("Speed");
@@ -13,8 +14,6 @@ namespace GRstory.Character
         private static readonly int MoveYHash = Animator.StringToHash("MoveY");
         private static readonly int IsAimingHash = Animator.StringToHash("IsAiming");
         private static readonly int IsDeadHash = Animator.StringToHash("IsDead");
-        private static readonly int StaggerHash = Animator.StringToHash("Stagger");
-        private static readonly int InteractHash = Animator.StringToHash("Interact");
         private static readonly int AttackHash = Animator.StringToHash("Attack");
 
         [SerializeField, Tooltip("비워두면 자식에서 찾는다")]
@@ -28,7 +27,6 @@ namespace GRstory.Character
         private PlayerMovement _movement;
         private PlayerAim _aim;
         private PlayerWeapon _weapon;
-        private Health _health;
         private RuntimeAnimatorController _baseController; // 맨손용. 무기 해제 시 되돌린다
         private float _upperBodyWeight;
 
@@ -37,9 +35,8 @@ namespace GRstory.Character
         {
             _behaviour = GetComponent<PlayerBehaviour>();
             _movement = GetComponent<PlayerMovement>();
-            TryGetComponent(out _aim);
-            TryGetComponent(out _weapon);
-            TryGetComponent(out _health);
+            _aim = GetComponent<PlayerAim>();
+            _weapon = GetComponent<PlayerWeapon>();
 
             if (_animator == null)
                 _animator = GetComponentInChildren<Animator>();
@@ -57,24 +54,15 @@ namespace GRstory.Character
         private void OnEnable()
         {
             _behaviour.OnStateChanged += HandleStateChanged;
-            // 연속 피격은 상태가 그대로라 OnStateChanged가 안 오므로 피격 이벤트로 직접 트리거한다
-            if (_health != null) _health.OnHit += HandleHit;
-            if (_weapon != null)
-            {
-                _weapon.OnWeaponChanged += HandleWeaponChanged;
-                _weapon.OnAttacked += HandleAttacked;
-            }
+            _weapon.OnWeaponChanged += HandleWeaponChanged;
+            _weapon.OnAttacked += HandleAttacked;
         }
 
         private void OnDisable()
         {
             _behaviour.OnStateChanged -= HandleStateChanged;
-            if (_health != null) _health.OnHit -= HandleHit;
-            if (_weapon != null)
-            {
-                _weapon.OnWeaponChanged -= HandleWeaponChanged;
-                _weapon.OnAttacked -= HandleAttacked;
-            }
+            _weapon.OnWeaponChanged -= HandleWeaponChanged;
+            _weapon.OnAttacked -= HandleAttacked;
         }
 
         private void Update()
@@ -89,7 +77,7 @@ namespace GRstory.Character
             _animator.SetFloat(MoveXHash, localDirection.x, _dampTime, deltaTime);
             _animator.SetFloat(MoveYHash, localDirection.z, _dampTime, deltaTime);
 
-            bool isAiming = _aim != null && _aim.IsAiming;
+            bool isAiming = _aim.IsAiming;
             _animator.SetBool(IsAimingHash, isAiming);
 
             UpdateUpperBodyLayer(isAiming, deltaTime);
@@ -104,27 +92,15 @@ namespace GRstory.Character
             _animator.SetLayerWeight(_upperBodyLayerIndex, _upperBodyWeight);
         }
 
+        // 상호작용·경직은 애니메이션 없이 상태만 유지한다. 죽음만 애니메이터에 알린다
         private void HandleStateChanged(EPlayerState state)
         {
-            switch (state)
-            {
-                case EPlayerState.Interacting:
-                    _animator.SetTrigger(InteractHash);
-                    break;
-                case EPlayerState.Dead:
-                    _animator.SetBool(IsDeadHash, true);
-                    break;
-            }
-        }
-
-        private void HandleHit(DamageContext context)
-        {
-            _animator.SetTrigger(StaggerHash);
+            if (state == EPlayerState.Dead) _animator.SetBool(IsDeadHash, true);
         }
 
         // 무기별 파지·조준·발사 클립은 오버라이드 컨트롤러로 바꾼다.
         // 교체 순간 상태머신이 초기화되지만 인벤토리 정지 중에 일어나므로 눈에 띄지 않는다
-        private void HandleWeaponChanged(WeaponData weapon)
+        private void HandleWeaponChanged(WeaponItemData weapon)
         {
             RuntimeAnimatorController next = weapon != null && weapon.AnimatorOverride != null
                 ? weapon.AnimatorOverride

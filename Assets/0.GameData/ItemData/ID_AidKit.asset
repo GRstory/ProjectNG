@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: ID_AidKit
   m_EditorClassIdentifier: Assembly-CSharp::GRstory.ItemSystem.ItemData
   <Id>k__BackingField: AidKit
-  <DisplayName>k__BackingField: 
-  <Description>k__BackingField: 
+  <DisplayName>k__BackingField: "\uAD6C\uAE09\uC0C1\uC790"
+  <Description>k__BackingField: "\uC9C0\uC18D\uC801\uC73C\uB85C \uB9CE\uC740 \uCCB4\uB825\uC744
+    \uCC44\uC6CC\uC900\uB2E4."
   <Icon>k__BackingField: {fileID: 0}
   <MaxStack>k__BackingField: 1
   <ConsumeOnUse>k__BackingField: 1
-  <UseEffect>k__BackingField: {fileID: 11400000, guid: 46aac0076dd69c04f8795dc4d7d28d79, type: 2}
+  <UseEffect>k__BackingField: {fileID: 11400000, guid: 101f6d4eecbd39e4e8d6dd71fc3f36d6, type: 2}

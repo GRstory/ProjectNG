@@ -13,6 +13,6 @@ namespace GRstory.StateTree
 
         public EStateTransitionState Trigger => _trigger;
         public List<StateCondition> ConditionList => _conditionList;
-        public State TargetState => _targetState;
+        public State TargetState { get => _targetState; set => _targetState = value; }
     }
 }

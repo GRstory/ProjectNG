@@ -1,0 +1,122 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 235479b945be7ae428e3c643ccc1975a, type: 3}
+  m_Name: Enemy1
+  m_EditorClassIdentifier: Assembly-CSharp::GRstory.StateTree.StateTreeAsset
+  _rootState:
+    rid: 1001
+  _nodeList:
+  - rid: 1001
+  - rid: 1002
+  - rid: 1003
+  - rid: 1004
+  - rid: 1005
+  references:
+    version: 2
+    RefIds:
+    - rid: 1001
+      type: {class: State, ns: GRstory.StateTree, asm: Assembly-CSharp}
+      data:
+        _guid: e1000001a3f24c8d9b5e7f6a1c2d3e01
+        _stateName: Root
+        _position: {x: 0, y: 150}
+        _childStateList:
+        - rid: 1002
+        - rid: 1003
+        _enterConditionList: []
+        _taskList: []
+        _transitionList: []
+    - rid: 1002
+      type: {class: State, ns: GRstory.StateTree, asm: Assembly-CSharp}
+      data:
+        _guid: e1000002a3f24c8d9b5e7f6a1c2d3e02
+        _stateName: Idle
+        _position: {x: 320, y: 40}
+        _childStateList: []
+        _enterConditionList: []
+        _taskList: []
+        _transitionList:
+        - _trigger: 0
+          _conditionList:
+          - rid: 2001
+          _targetState:
+            rid: 1003
+    - rid: 1003
+      type: {class: State, ns: GRstory.StateTree, asm: Assembly-CSharp}
+      data:
+        _guid: e1000003a3f24c8d9b5e7f6a1c2d3e03
+        _stateName: Combat
+        _position: {x: 320, y: 260}
+        _childStateList:
+        - rid: 1004
+        - rid: 1005
+        _enterConditionList: []
+        _taskList: []
+        _transitionList: []
+    - rid: 1004
+      type: {class: State, ns: GRstory.StateTree, asm: Assembly-CSharp}
+      data:
+        _guid: e1000004a3f24c8d9b5e7f6a1c2d3e04
+        _stateName: Chase
+        _position: {x: 640, y: 200}
+        _childStateList: []
+        _enterConditionList: []
+        _taskList:
+        - rid: 3001
+        _transitionList:
+        - _trigger: 0
+          _conditionList:
+          - rid: 2002
+          _targetState:
+            rid: 1005
+    - rid: 1005
+      type: {class: State, ns: GRstory.StateTree, asm: Assembly-CSharp}
+      data:
+        _guid: e1000005a3f24c8d9b5e7f6a1c2d3e05
+        _stateName: Attack
+        _position: {x: 640, y: 400}
+        _childStateList: []
+        _enterConditionList: []
+        _taskList:
+        - rid: 3002
+        _transitionList:
+        - _trigger: 0
+          _conditionList:
+          - rid: 2003
+          _targetState:
+            rid: 1004
+    - rid: 2001
+      type: {class: TargetDistanceCondition, ns: GRstory.Character, asm: Assembly-CSharp}
+      data:
+        _distance: 8
+        _isWithin: 1
+    - rid: 2002
+      type: {class: TargetDistanceCondition, ns: GRstory.Character, asm: Assembly-CSharp}
+      data:
+        _distance: 1.5
+        _isWithin: 1
+    - rid: 2003
+      type: {class: TargetDistanceCondition, ns: GRstory.Character, asm: Assembly-CSharp}
+      data:
+        _distance: 0.8
+        _isWithin: 0
+    - rid: 3001
+      type: {class: ChaseTargetTask, ns: GRstory.Character, asm: Assembly-CSharp}
+      data:
+        _repathInterval: 0.2
+    - rid: 3002
+      type: {class: MeleeAttackTask, ns: GRstory.Character, asm: Assembly-CSharp}
+      data:
+        _damage: 10
+        _range: 0.8
+        _cooldown: 2
+        _turnSpeed: 120

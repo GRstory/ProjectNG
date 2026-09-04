@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 533254fdb3a1bb743b98b77a44637dd9, type: 3}
+  m_Name: WID_Sniper
+  m_EditorClassIdentifier: Assembly-CSharp::GRstory.ItemSystem.WeaponItemData
+  <Id>k__BackingField: Sniper
+  <DisplayName>k__BackingField: "\uB2E8\uBC1C \uC18C\uCD1D"
+  <Description>k__BackingField: "DOA\uAC00 \uB0AE\uC740 \uC2A4\uB098\uC774\uD37C."
+  <Icon>k__BackingField: {fileID: 0}
+  <MaxStack>k__BackingField: 1
+  <ConsumeOnUse>k__BackingField: 0
+  <UseEffect>k__BackingField: {fileID: 0}
+  <Damage>k__BackingField: 50
+  <Range>k__BackingField: 30
+  <Cooldown>k__BackingField: 1.5
+  <IsAutomatic>k__BackingField: 0
+  <PelletCount>k__BackingField: 1
+  <SpreadAngle>k__BackingField: 0
+  <HitMask>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 0
+  <AnimatorOverride>k__BackingField: {fileID: 22100000, guid: 865e720e9c3542e4c8217f00cf9d98ab, type: 2}
+  <ActorPrefab>k__BackingField: {fileID: 5031270569100187953, guid: 5eb558bb383c70348b54f60c156f70a4, type: 3}

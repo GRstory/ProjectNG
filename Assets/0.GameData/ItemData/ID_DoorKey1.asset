@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: ID_DoorKey1
   m_EditorClassIdentifier: Assembly-CSharp::GRstory.ItemSystem.ItemData
   <Id>k__BackingField: DoorKey1
-  <DisplayName>k__BackingField: 
-  <Description>k__BackingField: 
+  <DisplayName>k__BackingField: "\uD0A4\uCE74\uB4DC-Atype"
+  <Description>k__BackingField: "\uC5B4\uB518\uAC00\uC758 \uBB38\uC744 \uC5F4 \uC218
+    \uC788\uB2E4."
   <Icon>k__BackingField: {fileID: 0}
   <MaxStack>k__BackingField: 1
-  <ConsumeOnUse>k__BackingField: 1
+  <ConsumeOnUse>k__BackingField: 0
   <UseEffect>k__BackingField: {fileID: 0}

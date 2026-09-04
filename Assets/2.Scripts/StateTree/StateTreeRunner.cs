@@ -90,8 +90,9 @@ namespace GRstory.StateTree
                     if (transition.Trigger != trigger) continue;
                     if (!EvaluateConditions(transition)) continue;
 
-                    TransitionTo(transition.TargetState);
-                    return true;
+                    // 이미 서 있는 상태로의 전이는 발동으로 치지 않는다.
+                    // 조건이 계속 참인 상위 전이(루트의 "죽으면 Dead" 등)가 매 프레임 태스크 갱신을 가로채기 때문
+                    if (TransitionTo(transition.TargetState)) return true;
                 }
             }
             return false;
@@ -106,9 +107,10 @@ namespace GRstory.StateTree
             return true;
         }
 
-        private void TransitionTo(State targetState)
+        // 활성 경로가 실제로 바뀌었는지 돌려준다
+        private bool TransitionTo(State targetState)
         {
-            if (targetState == null) return;
+            if (targetState == null) return false;
 
             State leaf = SelectLeaf(targetState);
             List<State> newPath = BuildPath(leaf);
@@ -117,6 +119,8 @@ namespace GRstory.StateTree
             int common = 0;
             while (common < _activePath.Count && common < newPath.Count
                    && _activePath[common] == newPath[common]) common++;
+
+            if (common == _activePath.Count && common == newPath.Count) return false;
 
             for (int i = _activePath.Count - 1; i >= common; i--)
                 ExitState(_activePath[i]);
@@ -129,6 +133,7 @@ namespace GRstory.StateTree
             }
 
             OnStateChanged?.Invoke(CurrentLeaf);
+            return true;
         }
 
         // 진입 조건을 통과하는 첫 자식으로 리프까지 하강

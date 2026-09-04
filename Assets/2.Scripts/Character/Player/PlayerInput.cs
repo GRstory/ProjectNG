@@ -14,18 +14,17 @@ namespace GRstory.Character
         private InputAction _attack;
         private InputAction _interact;
         private InputAction _flashlight;
-        private InputAction _next;
-        private InputAction _previous;
+        private InputAction _point;
         private InputAction _inventory;
 
         public Vector2 MoveInput => _move.ReadValue<Vector2>();
+        public Vector2 PointerPosition => _point.ReadValue<Vector2>();   // 화면 픽셀 좌표. 조준 방향의 근원
         public bool IsSprintHeld => _sprint.IsPressed();
         public bool IsAimHeld => _aim.IsPressed();
         public bool AttackPressed => _attack.WasPressedThisFrame();
+        public bool IsAttackHeld => _attack.IsPressed();
         public bool InteractPressed => _interact.WasPressedThisFrame();
         public bool FlashlightPressed => _flashlight.WasPressedThisFrame();
-        public bool NextTargetPressed => _next.WasPressedThisFrame();
-        public bool PreviousTargetPressed => _previous.WasPressedThisFrame();
         public bool InventoryPressed => _inventory.WasPressedThisFrame();
 
         #region MonoBehaviour
@@ -38,8 +37,7 @@ namespace GRstory.Character
             _attack = _playerMap.FindAction("Attack", throwIfNotFound: true);
             _interact = _playerMap.FindAction("Interact", throwIfNotFound: true);
             _flashlight = _playerMap.FindAction("Flashlight", throwIfNotFound: true);
-            _next = _playerMap.FindAction("Next", throwIfNotFound: true);
-            _previous = _playerMap.FindAction("Previous", throwIfNotFound: true);
+            _point = _playerMap.FindAction("Point", throwIfNotFound: true);
             _inventory = _playerMap.FindAction("Inventory", throwIfNotFound: true);
         }
 

@@ -89,7 +89,7 @@ namespace GRstory.UISystem
             _inventory.TryUse(_selectedSlot);
         }
 
-        private void HandleWeaponChanged(WeaponData weapon)
+        private void HandleWeaponChanged(WeaponItemData weapon)
         {
             RefreshDetail();
         }
@@ -121,7 +121,7 @@ namespace GRstory.UISystem
         // 일반 아이템은 "사용", 무기는 "장착", 장착 중인 무기면 "장착 해제"
         private string GetUseLabel(ItemStack stack)
         {
-            if (stack == null || stack.Item is not WeaponData weapon) return UseLabel;
+            if (stack == null || stack.Item is not WeaponItemData weapon) return UseLabel;
             return _weapon != null && _weapon.Equipped == weapon ? UnequipLabel : EquipLabel;
         }
     }
